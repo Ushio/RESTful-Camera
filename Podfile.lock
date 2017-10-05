@@ -1,0 +1,56 @@
+PODS:
+  - GCDWebServer (3.4.1):
+    - GCDWebServer/Core (= 3.4.1)
+  - GCDWebServer/Core (3.4.1)
+  - libextobjc (0.4.1):
+    - libextobjc/EXTADT (= 0.4.1)
+    - libextobjc/EXTConcreteProtocol (= 0.4.1)
+    - libextobjc/EXTKeyPathCoding (= 0.4.1)
+    - libextobjc/EXTNil (= 0.4.1)
+    - libextobjc/EXTSafeCategory (= 0.4.1)
+    - libextobjc/EXTScope (= 0.4.1)
+    - libextobjc/EXTSelectorChecking (= 0.4.1)
+    - libextobjc/EXTSynthesize (= 0.4.1)
+    - libextobjc/NSInvocation+EXT (= 0.4.1)
+    - libextobjc/NSMethodSignature+EXT (= 0.4.1)
+    - libextobjc/RuntimeExtensions (= 0.4.1)
+    - libextobjc/UmbrellaHeader (= 0.4.1)
+  - libextobjc/EXTADT (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTConcreteProtocol (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTKeyPathCoding (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTNil (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSafeCategory (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTScope (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSelectorChecking (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSynthesize (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/NSInvocation+EXT (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/NSMethodSignature+EXT (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.4.1)
+  - libextobjc/UmbrellaHeader (0.4.1)
+  - OpenCV (3.2.0):
+    - OpenCV/Dynamic (= 3.2.0)
+  - OpenCV/Dynamic (3.2.0)
+
+DEPENDENCIES:
+  - GCDWebServer (~> 3.0)
+  - libextobjc
+  - OpenCV
+
+SPEC CHECKSUMS:
+  GCDWebServer: 1db60034fe0e78a4a8524bd6c7cd97cd3c589870
+  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
+  OpenCV: 0f7ab403d1e81769bc6f4f524c3c6928ecb1fdb8
+
+PODFILE CHECKSUM: 99fb5ddf5a1ecca5c2b964deb7e9a803533db2a7
+
+COCOAPODS: 1.1.1

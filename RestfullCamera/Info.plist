@@ -41,5 +41,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>RestfullCamera take photos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>RestfullCamera save photos.</string>
 </dict>
 </plist>

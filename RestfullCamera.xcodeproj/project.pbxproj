@@ -13,9 +13,13 @@
 		AEB0C4CB1F84D4AF006C21E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEB0C4CA1F84D4AF006C21E9 /* Assets.xcassets */; };
 		AEB0C4CE1F84D4AF006C21E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEB0C4CC1F84D4AF006C21E9 /* LaunchScreen.storyboard */; };
 		AEB0C4D11F84D4AF006C21E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB0C4D01F84D4AF006C21E9 /* main.m */; };
+		AEB0C4D91F8519EF006C21E9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEB0C4D81F8519EF006C21E9 /* AVFoundation.framework */; };
+		C1A617617A15BA5043257931 /* libPods-RestfullCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A62A68FF5DA1EF70216C6A /* libPods-RestfullCamera.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0BD14FBCD31BF91C47036AAC /* Pods-RestfullCamera.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestfullCamera.release.xcconfig"; path = "Pods/Target Support Files/Pods-RestfullCamera/Pods-RestfullCamera.release.xcconfig"; sourceTree = "<group>"; };
+		5482B7D497C46F827C125C0E /* Pods-RestfullCamera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestfullCamera.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RestfullCamera/Pods-RestfullCamera.debug.xcconfig"; sourceTree = "<group>"; };
 		AEB0C4BE1F84D4AE006C21E9 /* RestfullCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestfullCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEB0C4C11F84D4AF006C21E9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AEB0C4C21F84D4AF006C21E9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -26,6 +30,8 @@
 		AEB0C4CD1F84D4AF006C21E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AEB0C4CF1F84D4AF006C21E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEB0C4D01F84D4AF006C21E9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AEB0C4D81F8519EF006C21E9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		F8A62A68FF5DA1EF70216C6A /* libPods-RestfullCamera.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RestfullCamera.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEB0C4D91F8519EF006C21E9 /* AVFoundation.framework in Frameworks */,
+				C1A617617A15BA5043257931 /* libPods-RestfullCamera.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +52,8 @@
 			children = (
 				AEB0C4C01F84D4AE006C21E9 /* RestfullCamera */,
 				AEB0C4BF1F84D4AE006C21E9 /* Products */,
+				AEB0C4D71F8519EE006C21E9 /* Frameworks */,
+				CEF935ABE56ACF74A9EA195D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +81,24 @@
 			path = RestfullCamera;
 			sourceTree = "<group>";
 		};
+		AEB0C4D71F8519EE006C21E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AEB0C4D81F8519EF006C21E9 /* AVFoundation.framework */,
+				F8A62A68FF5DA1EF70216C6A /* libPods-RestfullCamera.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEF935ABE56ACF74A9EA195D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5482B7D497C46F827C125C0E /* Pods-RestfullCamera.debug.xcconfig */,
+				0BD14FBCD31BF91C47036AAC /* Pods-RestfullCamera.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -78,9 +106,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AEB0C4D41F84D4AF006C21E9 /* Build configuration list for PBXNativeTarget "RestfullCamera" */;
 			buildPhases = (
+				87960B9129C8584060F0C3A8 /* [CP] Check Pods Manifest.lock */,
 				AEB0C4BA1F84D4AE006C21E9 /* Sources */,
 				AEB0C4BB1F84D4AE006C21E9 /* Frameworks */,
 				AEB0C4BC1F84D4AE006C21E9 /* Resources */,
+				DB976F857D3039802E458787 /* [CP] Embed Pods Frameworks */,
+				200A376FCFF445584ECEA27B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -136,6 +167,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		200A376FCFF445584ECEA27B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RestfullCamera/Pods-RestfullCamera-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87960B9129C8584060F0C3A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DB976F857D3039802E458787 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RestfullCamera/Pods-RestfullCamera-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AEB0C4BA1F84D4AE006C21E9 /* Sources */ = {
@@ -276,11 +355,13 @@
 		};
 		AEB0C4D51F84D4AF006C21E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5482B7D497C46F827C125C0E /* Pods-RestfullCamera.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5WSGYB84AM;
 				INFOPLIST_FILE = RestfullCamera/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.w0w.RestfullCamera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -290,11 +371,13 @@
 		};
 		AEB0C4D61F84D4AF006C21E9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BD14FBCD31BF91C47036AAC /* Pods-RestfullCamera.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5WSGYB84AM;
 				INFOPLIST_FILE = RestfullCamera/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.w0w.RestfullCamera;
 				PRODUCT_NAME = "$(TARGET_NAME)";

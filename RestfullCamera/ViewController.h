@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface ViewController : UIViewController
+#import "GCDWebServer.h"
+#import "GCDWebServerDataResponse.h"
+
+#import "extobjc.h"
+
+@interface ViewController : UIViewController<AVCapturePhotoCaptureDelegate>
 
 
 @end
