@@ -31,6 +31,7 @@
 		AEB0C4CF1F84D4AF006C21E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEB0C4D01F84D4AF006C21E9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AEB0C4D81F8519EF006C21E9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		AEE9BB141F8877BE00DB7D64 /* SelfIP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelfIP.h; sourceTree = "<group>"; };
 		F8A62A68FF5DA1EF70216C6A /* libPods-RestfullCamera.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RestfullCamera.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,6 +73,7 @@
 				AEB0C4C21F84D4AF006C21E9 /* AppDelegate.m */,
 				AEB0C4C41F84D4AF006C21E9 /* ViewController.h */,
 				AEB0C4C51F84D4AF006C21E9 /* ViewController.m */,
+				AEE9BB141F8877BE00DB7D64 /* SelfIP.h */,
 				AEB0C4C71F84D4AF006C21E9 /* Main.storyboard */,
 				AEB0C4CA1F84D4AF006C21E9 /* Assets.xcassets */,
 				AEB0C4CC1F84D4AF006C21E9 /* LaunchScreen.storyboard */,

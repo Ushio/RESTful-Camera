@@ -7,43 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "SelfIP.h"
 
-// TODO
 /*
- 画像の向き
- ホワイトバランス
+ TODO
+  -Zoom
  */
-#include <ifaddrs.h>
-#include <arpa/inet.h>
 
-static NSString *selfIP() {
-    NSString *address = nil;
-    struct ifaddrs *interfaces = NULL;
-    struct ifaddrs *temp_addr = NULL;
-    int success = 0;
-    // retrieve the current interfaces - returns 0 on success
-    success = getifaddrs(&interfaces);
-    if (success == 0) {
-        // Loop through linked list of interfaces
-        temp_addr = interfaces;
-        while(temp_addr != NULL) {
-            if(temp_addr->ifa_addr->sa_family == AF_INET) {
-                // Check if interface is en0 which is the wifi connection on the iPhone
-                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
-                    // Get NSString from C String
-                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
-                    
-                }
-                
-            }
-            
-            temp_addr = temp_addr->ifa_next;
-        }
-    }
-    // Free memory
-    freeifaddrs(interfaces);
-    return address;
-}
 
 @interface DataTask : NSObject
 @property (nonatomic) NSData *data;
@@ -71,13 +41,16 @@ static NSString *selfIP() {
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelIP;
-
 @property (weak, nonatomic) IBOutlet UILabel *labelShutterSpeed;
 @property (weak, nonatomic) IBOutlet UILabel *labelISO;
+@property (weak, nonatomic) IBOutlet UILabel *labelColorTemperature;
 
+@property (weak, nonatomic) IBOutlet UISlider *slider4;
 @property (weak, nonatomic) IBOutlet UISlider *slider3;
 @property (weak, nonatomic) IBOutlet UISlider *slider2;
 @property (weak, nonatomic) IBOutlet UISlider *slider1;
+
+@property (weak, nonatomic) IBOutlet UIImageView *upImageView;
 
 @property (nonatomic) NSMutableArray<DataTask *> *takeQueue;
 @end
@@ -90,6 +63,8 @@ static NSString *selfIP() {
     
     float _iso;
     CMTime _shutterSpeed;
+    
+    UIImageOrientation _orientation;
     
     NSTimer *_timer;
     
@@ -146,6 +121,7 @@ static NSString *selfIP() {
     
     if([_device lockForConfiguration:&error]) {
         _device.focusMode = AVCaptureFocusModeLocked;
+        _device.whiteBalanceMode = AVCaptureWhiteBalanceModeLocked;
         
         _device.activeFormat = largeFormat;
         NSLog(@"%@", largeFormat);
@@ -156,12 +132,19 @@ static NSString *selfIP() {
     //セッション開始
     [_session startRunning];
     
-    _iso = 100.0f;
-    _shutterSpeed = CMTimeMake(1, 30);
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    if([ud objectForKey:@"orientation"]) {
+        self.slider1.value = [ud floatForKey:@"slider1"];
+        self.slider2.value = [ud floatForKey:@"slider2"];
+        self.slider3.value = [ud floatForKey:@"slider3"];
+        self.slider4.value = [ud floatForKey:@"slider4"];
+        _orientation = [ud integerForKey:@"orientation"];
+    }
     
     [self didChangeSlider1:self.slider1];
     [self didChangeSlider2:self.slider2];
     [self didChangeSlider3:self.slider3];
+    [self didChangeSlider4:self.slider4];
     
     _takeQueue = [NSMutableArray<DataTask *> array];
     
@@ -181,6 +164,33 @@ static NSString *selfIP() {
                                // return [GCDWebServerDataResponse responseWithHTML:@"<html><body><p>Hello World</p></body></html>"];
                            }];
     [_server startWithPort:8080 bonjourName:nil];
+}
+- (IBAction)didChangeSlider4:(UISlider *)sender {
+    NSError *error;
+    if([_device lockForConfiguration:&error]) {
+        int minColorTemperature00 = 30;
+        int maxColorTemperature00 = 80;
+        int N = (int)(maxColorTemperature00 - minColorTemperature00 + 1);
+        int n = MIN((int)(sender.value * N), N - 1);
+        sender.value = (float)n / (float)(N - 1);
+        
+        int colorTemperature = (minColorTemperature00 + n) * 100;
+        
+        AVCaptureWhiteBalanceTemperatureAndTintValues temp = {};
+        temp.temperature = colorTemperature;
+        temp.tint = 0.0f;
+        AVCaptureWhiteBalanceGains gains = [_device deviceWhiteBalanceGainsForTemperatureAndTintValues:temp];
+        float maxGain = [_device maxWhiteBalanceGain];
+        gains.redGain = MIN(MAX(1.0f, gains.redGain), maxGain);
+        gains.greenGain = MIN(MAX(1.0f, gains.greenGain), maxGain);
+        gains.blueGain = MIN(MAX(1.0f, gains.blueGain), maxGain);
+        [_device setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains:gains completionHandler:nil];
+        [_device unlockForConfiguration];
+        
+        self.labelColorTemperature.text = [NSString stringWithFormat:@"Color Temp: %d", colorTemperature];
+    }
+    
+    [self save];
 }
 
 - (IBAction)didChangeSlider3:(UISlider *)sender {
@@ -237,6 +247,7 @@ static NSString *selfIP() {
         [_device setExposureModeCustomWithDuration:_shutterSpeed ISO:_iso completionHandler:nil];
         [_device unlockForConfiguration];
     }
+    [self save];
 }
 
 - (IBAction)didChangeSlider2:(UISlider *)sender {
@@ -252,8 +263,26 @@ static NSString *selfIP() {
         [_device setExposureModeCustomWithDuration:_shutterSpeed ISO:_iso completionHandler:nil];
         [_device unlockForConfiguration];
     }
+    
+    [self save];
 }
+- (IBAction)didChangeSlider1:(UISlider *)sender {
+    NSError *error;
+    if([_device lockForConfiguration:&error]) {
+        [_device setFocusModeLockedWithLensPosition:sender.value completionHandler:nil];
+        [_device unlockForConfiguration];
+    }
+    [self save];
+}
+
 - (IBAction)shoot:(id)sender {
+    AVCaptureConnection *connection = [_output connectionWithMediaType:AVMediaTypeVideo];
+    NSDictionary<NSNumber *, NSNumber *> *orientationMap = @{@(UIImageOrientationUp):@(AVCaptureVideoOrientationPortrait),
+                                                             @(UIImageOrientationRight):@(AVCaptureVideoOrientationLandscapeRight),
+                                                             @(UIImageOrientationDown):@(AVCaptureVideoOrientationPortraitUpsideDown),
+                                                             @(UIImageOrientationLeft):@(AVCaptureVideoOrientationLandscapeLeft) };
+    connection.videoOrientation = (AVCaptureVideoOrientation)(orientationMap[@(_orientation)].intValue);
+    
     AVCapturePhotoSettings *settings = [[AVCapturePhotoSettings alloc] init];
     settings.flashMode = AVCaptureFlashModeOff;
     if (@available(iOS 10.2, *)) {
@@ -278,17 +307,29 @@ static NSString *selfIP() {
     }
 }
 
-- (IBAction)didChangeSlider1:(UISlider *)sender {
-    NSError *error;
-    if([_device lockForConfiguration:&error]) {
-        [_device setFocusModeLockedWithLensPosition:sender.value completionHandler:nil];
-        [_device unlockForConfiguration];
-    }
+
+- (IBAction)tapUp:(UITapGestureRecognizer *)sender {
+    NSDictionary<NSNumber *, NSNumber *> *nextOrientation = @{@(UIImageOrientationUp):@(UIImageOrientationRight),
+                                                              @(UIImageOrientationRight):@(UIImageOrientationDown),
+                                                              @(UIImageOrientationDown):@(UIImageOrientationLeft),
+                                                              @(UIImageOrientationLeft):@(UIImageOrientationUp) };
+    _orientation = (UIImageOrientation)(nextOrientation[@(_orientation)].intValue);
+    
+    UIImage *image = [UIImage imageNamed:@"up"];
+    self.upImageView.image = [UIImage imageWithCGImage:image.CGImage scale:1.0 orientation:_orientation];
+    
+    [self save];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)save {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setFloat:self.slider1.value forKey:@"slider1"];
+    [ud setFloat:self.slider2.value forKey:@"slider2"];
+    [ud setFloat:self.slider3.value forKey:@"slider3"];
+    [ud setFloat:self.slider4.value forKey:@"slider4"];
+    [ud setInteger:_orientation forKey:@"orientation"];
+    
+    [ud synchronize];
 }
 
 
