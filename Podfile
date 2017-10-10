@@ -8,7 +8,6 @@ target 'RestfullCamera' do
   # use_frameworks!
 
   # Pods for RestfullCamera
-  pod 'OpenCV'
   pod "GCDWebServer", "~> 3.0"
   pod 'libextobjc'
 end
