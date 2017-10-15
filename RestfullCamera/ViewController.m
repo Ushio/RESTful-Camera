@@ -295,6 +295,17 @@
 
 - (void)captureOutput:(AVCapturePhotoOutput *)output didFinishProcessingPhotoSampleBuffer:(nullable CMSampleBufferRef)photoSampleBuffer previewPhotoSampleBuffer:(nullable CMSampleBufferRef)previewPhotoSampleBuffer resolvedSettings:(AVCaptureResolvedPhotoSettings *)resolvedSettings bracketSettings:(nullable AVCaptureBracketedStillImageSettings *)bracketSettings error:(nullable NSError *)error {
     NSData *data = [AVCapturePhotoOutput JPEGPhotoDataRepresentationForJPEGSampleBuffer:photoSampleBuffer previewPhotoSampleBuffer:previewPhotoSampleBuffer];
+    
+    // Fix Orientation
+    {
+        UIImage *srcImage = [UIImage imageWithData:data];
+        UIGraphicsBeginImageContextWithOptions(srcImage.size, NO, srcImage.scale);
+        [srcImage drawInRect:CGRectMake(0, 0, srcImage.size.width, srcImage.size.height)];
+        UIImage *dstImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        data = UIImageJPEGRepresentation(dstImage, 0.95);
+    }
+    
     // UIImage *image = [UIImage imageWithData:data];
     // NSLog(@"take: %@", NSStringFromCGSize(image.size));
     // UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
